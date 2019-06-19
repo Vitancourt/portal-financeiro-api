@@ -15,7 +15,8 @@ const RealizacaoDaNegociacao = new mongoose.Schema({
     nrParcelaLst: Number,
     dtEmissaoLst: String,
     nrDiasEmAbertoLst: Number,
-    userId: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
+    cdUnb: Number,
+    cdCliente: Number
 })
 
 module.exports = mongoose.model('RealizacaoDaNegociacao', RealizacaoDaNegociacao)
