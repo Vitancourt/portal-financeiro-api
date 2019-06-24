@@ -56,7 +56,7 @@ router.post('/', (req, res, next) => {
       
           titulosnegociados.save()
               .then(titulosnegociadosSaved => {
-                  return res.status(201).json(titulosnegociados)
+                  return res.status(201).json(titulosnegociadosSaved)
               })
               .catch(err => {
                   return res.status(500).json({msg: 'Nao existe titulos negociados'})
