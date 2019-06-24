@@ -27,12 +27,10 @@ router.post('/', (req, res, next) => {
         cdCliente
     } = req.body
 
-    const user = User.find({ cdUnb: cdUnb, cdCliente: cdCliente }, function (err, users) {
-        if (err) console.error(err)
-        if (users[0] === undefined) {
-            return res.status(500).json({ msg: "User not found!" })
-        }
-        if (cdUnb === users[0].cdUnb && cdCliente === users[0].cdCliente) {
+    const user = User.find({ cdUnb: cdUnb, cdCliente: cdCliente }, function(err, users){
+        if (err) return console.error(err)
+        if (users[0] === undefined) return res.status(500).json({msg: "User not found!"})
+        if (cdCliente === users[0].cdCliente && cdUnb === users[0].cdUnb) {
             const negociacaoData = new RealizacaoDeNegociacao({
                 qtDiasInadimplencia,
                 dsEmail,
@@ -58,10 +56,7 @@ router.post('/', (req, res, next) => {
                 .catch(err => {
                     return res.status(500).json({msg: "Cannot save negotiation"})
                 })
-        } else {
-            return res.status(500).json({ msg: "User not found!" })
         }
-
     })
 })
 
