@@ -2,6 +2,7 @@ const express = require('express')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const cors = require('cors')
 const mongoose = require('mongoose')
 
 const app = express()
@@ -12,6 +13,7 @@ mongoose.Promise = global.Promise
 
 // Middlewares
 app.use(helmet())
+app.use(cors())
 app.use(bodyParser.json())
 app.use(morgan('dev'))
 app.use(router)
