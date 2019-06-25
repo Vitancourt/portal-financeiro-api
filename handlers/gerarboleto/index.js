@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const User = require('../../models/user')
 const GerarBoleto = require('../../models/gerarboleto') 
 const TitulosNegociado  = require('../../models/titulosnegociados')
 
@@ -9,13 +8,12 @@ router.post('/',(req, res, next) => {
         cdUnb,
         cdCliente,
         link
-    } = req.body
+    } = req.query
 
     const titulosnegociado  = TitulosNegociado.find({cdUnb: cdUnb, cdCliente: cdCliente}, function(err, titulosnegociados) {
         if(err) return console.log(err)
         if(titulosnegociados.length === 0) return res.status(500).json({msg: 'User not found or has no bills to pay'})
         const result = titulosnegociados.filter(titulo => titulo.Boleto.link === link)
-        console.log(result);
         const gerarboleto = GerarBoleto({
             link
         })
