@@ -43,14 +43,16 @@ router.post('/', (req, res, next) => {
                 vlTotalNegociacao:generateRandom(1,999),
                 dsFormaNegociacao:"Boleto Avulso",
                 tpFrequenciaPagto:generateRandom(1,9),
+                cdUnb,
+                cdCliente,
                 Boleto: {
                   nrParcela:generateRandom(1,9),
                   vlBoleto:generateRandom(1,999),
                   dtVencBoleto:dateFormat(randomDate(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy'),
                   stBoleto:generateRandom(1,9),
-                  cdBarraBoleto:"34191090080004935293383338180009139720000014356",
+                  cdBarraBoleto:generateRandom(1,99999999999999999999),
                   dsStBoleto: "GERADO",
-                  link:"P0810800000404700000000049368420000000020190603"
+                  link:"P" + generateRandom(1,99999999999999999999)
                 }
           })
       
