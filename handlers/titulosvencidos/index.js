@@ -24,52 +24,63 @@ function randomDate(start, end) {
   
 
 router.post('/', (req, res, next) => {
-    const inadimplentes = User.find({ inadimplente: true }, function (err, users) {
-        if (err) return console.error(err)
-        
-        const especie = [
-            "Bloqueto",
-            "Venda a Vista",
-            "Cheque Pre",
-            "Esp. Boleto Avulso",
-            "Bloqueto",
-            "Crédito Conta",
-            "Aviso Debito Tarifa",     
-            "Vale",                   
-            "Boleto Comodato",
-            "Cheque Devolvido",
-            "Cheque Representado",
-            "Confissão de Dívida",
-            "Adiantamento FP.",
-            "Aviso Débito",
-            "Vale Funcionário",
-            "Vale Funcionário Out.",
-            "Vale Vasilhame",
-            "Cartão Débito a Vista",
-            "Cartão Débito a Prazo"
-        ]
+  
+    const {
+        cdUnd,
+        cdCliente
+    } = req.body
 
-        let titulo = new TitulosVencidos({
-            cdEmpresa: generateRandom(1,99) * 100,
-            cdFilial: generateRandom(1,99) * 1000,
-            nrTitulo: generateRandom(1,99) * 100000,
-            nrParcela: generateRandom(1,99) * 12,
-            cdEspecie: generateRandom(1,99) * 99,
-            dsEspecie: especie[generateRandom(1,99) * especie.length],
-            dtEmissao: dateFormat(randomDate(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy'),
-            dtVencimento: dateFormat(randomDate(new Date(2019, 12, 30), new Date()),'dd/mm/yyyy'),
-            vlTitulo: (generateRandom(1,99)) * 9999,
-            nrDiasEmAberto: generateRandom(1,999999999),
-            stTitulo: "Vencido"
-        })
-        titulo.save()
-            .then(newBill => {
-                return res.status(201).json(newBill)
+    const user = User.find({ cdUnd: cdUnd, cdCliente: cdCliente }, function (err, users) {
+        
+        if (err) return console.error(err)
+        console.log(users)
+        if(users[0] === undefined) return res.status(500).json({msg: "User not found"})
+        if(cdUnd === users[0].cdUnd && cdCliente === users[0].cdCliente) {
+
+            const especie = [
+                "Bloqueto",
+                "Venda a Vista",
+                "Cheque Pre",
+                "Esp. Boleto Avulso",
+                "Bloqueto",
+                "Crédito Conta",
+                "Aviso Debito Tarifa",     
+                "Vale",                   
+                "Boleto Comodato",
+                "Cheque Devolvido",
+                "Cheque Representado",
+                "Confissão de Dívida",
+                "Adiantamento FP.",
+                "Aviso Débito",
+                "Vale Funcionário",
+                "Vale Funcionário Out.",
+                "Vale Vasilhame",
+                "Cartão Débito a Vista",
+                "Cartão Débito a Prazo"
+            ]
+          
+            let titulo =  TitulosVencidos({
+                cdEmpresa: generateRandom(1,99) * 100,
+                cdFilial: generateRandom(1,99) * 1000,
+                nrTitulo: generateRandom(1,99) * 100000,
+                nrParcela: generateRandom(1,99) * 12,
+                cdEspecie: generateRandom(1,99) * 99,
+                dsEspecie: especie[generateRandom(1,99) * especie.length],
+                dtEmissao: dateFormat(randomDate(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy'),
+                dtVencimento: dateFormat(randomDate(new Date(2019, 12, 30), new Date()),'dd/mm/yyyy'),
+                vlTitulo: (generateRandom(1,99)) * 9999,
+                nrDiasEmAberto: generateRandom(1,999999999),
+                stTitulo: "Vencido"
             })
-            .catch(err => {
-                console.log(err);
-                return res.status(500).json({msg:'Error saving bill'})
-            })
+            titulo.save()
+                .then(newBill => {
+                    return res.status(201).json(newBill)
+                })
+                .catch(err => {
+                    console.log(err);
+                    return res.status(500).json({msg:'Error saving bill'})
+                })
+        }
     })
 })
 
