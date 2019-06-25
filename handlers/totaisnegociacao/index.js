@@ -1,6 +1,7 @@
 const repository = require('../../repository/totaisnegociacao')
 const logger = require('morgan')
 const router = require('express').Router()
+const User = require('../../models/user')
 const Negociacao = require('../../models/totaisnegociacao')
 
 
@@ -20,21 +21,35 @@ const generateRandom = (min, max) => {
 
 
 router.post('/',(req, res, next) => {
-    const negociacao = Negociacao({
-        vlTotalSemCorrecao: generateRandom(1,99),
-        vlTotalCorrigido: generateRandom(1,99),
-        vlTotalBoleto: generateRandom(1,99),
-        vlTotalParcelado: generateRandom(1,99),
-        prJuros: generateRandom(1,5),
-        prMulta: generateRandom(1,5)
-    })
 
-    negociacao.save()
-        .then(negociacaoSaved => {
-            return res.status(201).json(negociacaoSaved)
-        })
-        .catch(err => {
-            return res.status(500).json({msg : 'Error saving negotiation'})
-        })
+    const {
+        cdUnb,
+        cdCliente
+    } = req.body
+
+    const user = User.find({cdUnb: cdUnb, cdCliente: cdCliente}, function(err, users){
+        if(err) return console.log(err)
+        if(users[0] === undefined) return res.status(500).json({msg: "User not found"})
+        if(cdUnb === users[0].cdUnb && cdCliente === users[0].cdCliente) {
+            
+            const negociacao = Negociacao({
+                vlTotalSemCorrecao: generateRandom(1,99),
+                vlTotalCorrigido: generateRandom(1,99),
+                vlTotalBoleto: generateRandom(1,99),
+                vlTotalParcelado: generateRandom(1,99),
+                prJuros: generateRandom(1,5),
+                prMulta: generateRandom(1,5)
+            })
+        
+            negociacao.save()
+                .then(negociacaoSaved => {
+                    return res.status(201).json(negociacaoSaved)
+                })
+                .catch(err => {
+                    return res.status(500).json({msg : 'Error saving negotiation'})
+                })
+        }
+    })
+ 
 })
 module.exports = router
