@@ -26,16 +26,15 @@ function randomDate(start, end) {
 router.post('/', (req, res, next) => {
   
     const {
-        cdUnd,
+        cdUnb,
         cdCliente
     } = req.body
 
-    const user = User.find({ cdUnd: cdUnd, cdCliente: cdCliente }, function (err, users) {
+    const user = User.find({ cdUnb: cdUnb, cdCliente: cdCliente }, function (err, users) {
         
         if (err) return console.error(err)
-        console.log(users)
         if(users[0] === undefined) return res.status(500).json({msg: "User not found"})
-        if(cdUnd === users[0].cdUnd && cdCliente === users[0].cdCliente) {
+        if(cdUnb === users[0].cdUnb && cdCliente === users[0].cdCliente) {
 
             const especie = [
                 "Bloqueto",
