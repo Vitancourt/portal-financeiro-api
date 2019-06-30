@@ -8,7 +8,7 @@ router.post('/',(req, res, next) => {
         cdUnb,
         cdCliente,
         link
-    } = req.query
+    } = req.body
 
     const titulosnegociado  = TitulosNegociado.find({cdUnb: cdUnb, cdCliente: cdCliente}, function(err, titulosnegociados) {
         if(err) return console.log(err)

@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
     const {
         cdUnb,
         cdCliente
-    } = req.query
+    } = req.body
 
     const user = User.find({cdUnb: cdUnb, cdCliente: cdCliente}, function(err, users){
         if(err) return console.log(err)
