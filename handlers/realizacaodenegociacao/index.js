@@ -21,8 +21,10 @@ router.post('/', (req, res, next) => {
 
     const user = User.find({ cdUnb: cdUnb, cdCliente: cdCliente }, function(err, users){
         if (err) return console.error(err)
+        console.log(cdUnb)
+        console.log(users[0].cdUnb)
         if (users[0] === undefined) return res.status(500).json({msg: "User not found!"})
-        if (cdCliente === users[0].cdCliente && cdUnb === users[0].cdUnb) {
+        if (parseInt(cdCliente) === users[0].cdCliente && parseInt(cdUnb) === users[0].cdUnb) {
                 const negociacaoData = new RealizacaoDeNegociacao({
                         message: 'Processo concluido'
                 })       
