@@ -7,22 +7,14 @@ const mongoose = require('mongoose')
 // Each of the following handlers has the req and res parameters, which stands for request and response. 
 // Each handler of this module represents an HTTP verb (GET, POST, PUT and DELETE) that will be linked to them in the future through a router.
 
+const generateRandom = (min, max) => {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
 router.post('/', (req, res, next) => {
     const {
-        qtDiasInadimplencia, 
-        dsEmail, 
-        tpNegociacao, 
-        nrParcelas,
-        idPeriodicidade,
-        idEntrada,
-        nrTituloLst,
-        dtVencimentoLst,
-        vlTituloLst, 
-        cdEmpresaLst,
-        cdFilialLst,
-        nrParcelaLst,
-        dtEmissaoLst,
-        nrDiasEmAbertoLst,
         cdUnb,
         cdCliente
     } = req.body
@@ -31,24 +23,23 @@ router.post('/', (req, res, next) => {
         if (err) return console.error(err)
         if (users[0] === undefined) return res.status(500).json({msg: "User not found!"})
         if (cdCliente === users[0].cdCliente && cdUnb === users[0].cdUnb) {
+                const negociacaoData = new RealizacaoDeNegociacao({
+                        message: 'Processo concluido'
+                })       
+                negociacaoData.save()
+                    .then(negociacaoDataSaved => {
+                        return res.status(201).json(negociacaoDataSaved)
+                    })
+                    .catch(err => {
+                        return res.status(500).json({msg: "Cannot save negotiation"})
+                    })
+        } else {
             const negociacaoData = new RealizacaoDeNegociacao({
-                qtDiasInadimplencia,
-                dsEmail,
-                tpNegociacao,
-                nrParcelas,
-                idPeriodicidade,
-                idEntrada,
-                nrTituloLst,
-                dtVencimentoLst,
-                vlTituloLst, 
-                cdEmpresaLst,
-                cdFilialLst,
-                nrParcelaLst,
-                dtEmissaoLst,
-                nrDiasEmAbertoLst,
-                cdUnb: users[0].cdUnb,
-                cdCliente: users[0].cdCliente
-            })
+                    message:{
+                        message:'Cliente não cadastrado',
+                        fileStatus:generateRandom(1,100)
+                    }
+            })       
             negociacaoData.save()
                 .then(negociacaoDataSaved => {
                     return res.status(201).json(negociacaoDataSaved)
