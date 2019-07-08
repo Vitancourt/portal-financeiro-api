@@ -52,51 +52,62 @@ router.post('/', (req, res, next) => {
         "Cartão Débito a Vista",
         "Cartão Débito a Prazo"
     ]
+   
+   let  vencidos = parseString(entrada[generateRandom(1,2)]);
+   let  avencer  = parseString(entrada[generateRandom(1,2)]);
+   let  pagos    = parseString(entrada[generateRandom(1,2)]);   
     const user = User.find({ cdUnb: cdUnb, cdCliente: cdCliente}, function(err, users) {
         if(err) return console.log(err);
         if(users[0] === undefined) return res.status(500).json({msg: 'User not found'});
         if(parseInt(cdUnb) === users[0].cdUnb && parseInt(cdCliente) === users[0].cdCliente) {
             let titulocliente = TituloCliente({
-                possuiTitulosVencidos: entrada[generateRandom(1,10)],
-                possuiTitulosAvencer: entrada[generateRandom(1,10)],
-                possuiTitulosPagos: entrada[generateRandom(1,10)],
-                TitulosVencidos :[
-                    {
-                        cdEmpresa: generateRandom(1,99),
-                        cdFilial: generateRandom(1, 999),
-                        nrTitulo: generateRandom(1, 99999),
-                        nrParcela: generateRandom(1, 9),
-                        dsEspecie: especie[generateRandom[1, 20]],
-                        dtEmissao: dateformat(randomDate(new Date(2019, 12, 01), new Date('dd/mm/yyyy'))),
-                        dtVencimento: dateFormat(randomDate(new Date(2019,12, 30)),new Date('dd/mm/yyyy')),
-                        vlTitulo: generateRandom(1,999),
-                        nrDiasEmAberto: generateRandom(1, 999),
-                    }
-                ],
-                TitulosAvencer:[
-                    {
-                        cdEmpresa: generateRandom(1,99),
-                        cdFilial: generateRandom(1, 999),
-                        nrTitulo: generateRandom(1, 99999),
-                        nrParcela: generateRandom(1, 9),
-                        dsEspecie: especie[generateRandom[1, 20]],
-                        dtEmissao: dateformat(randomDate(new Date(2019, 12, 01), new Date('dd/mm/yyyy'))),
-                        dtVencimento: dateFormat(randomDate(new Date(2019,12, 30)),new Date('dd/mm/yyyy')),
-                        vlTitulo: generateRandom(1,999),
-                    }
-                ],
-                TitulosPagos: [
-                    {
-                        cdEmpresa: generateRandom(1,99),
-                        cdFilial: generateRandom(1, 999),
-                        nrTitulo: generateRandom(1, 99999),
-                        nrParcela: generateRandom(1, 9),
-                        dsEspecie: especie[generateRandom[1, 20]],
-                        dtEmissao: dateformat(randomDate(new Date(2019, 12, 01), new Date('dd/mm/yyyy'))),
-                        dtPagamento: dateFormat(randomDate(new Date(2019,12, 30)),new Date('dd/mm/yyyy')),
-                        vlTitulo: generateRandom(1,999),
-                    }
-                ]
+                possuiTitulosVencidos: vencidos,
+                possuiTitulosAvencer: avencer,
+                possuiTitulosPagos: pagos,
+                if (vencidos) {
+                    'TitulosVencidos' = [
+                        {
+                            cdEmpresa: generateRandom(1,99),
+                            cdFilial: generateRandom(1, 999),
+                            nrTitulo: generateRandom(1, 99999),
+                            nrParcela: generateRandom(1, 9),
+                            dsEspecie: especie[generateRandom[1, 20]],
+                            dtEmissao: dateformat(randomDate(new Date(2019, 12, 01), new Date('dd/mm/yyyy'))),
+                            dtVencimento: dateFormat(randomDate(new Date(2019,12, 30)),new Date('dd/mm/yyyy')),
+                            vlTitulo: generateRandom(1,999),
+                            nrDiasEmAberto: generateRandom(1, 999),
+                        }
+                    ] 
+                },
+                if(avencer) {
+                    'TitulosAvencer' = [
+                        {
+                            cdEmpresa: generateRandom(1,99),
+                            cdFilial: generateRandom(1, 999),
+                            nrTitulo: generateRandom(1, 99999),
+                            nrParcela: generateRandom(1, 9),
+                            dsEspecie: especie[generateRandom[1, 20]],
+                            dtEmissao: dateformat(randomDate(new Date(2019, 12, 01), new Date('dd/mm/yyyy'))),
+                            dtVencimento: dateFormat(randomDate(new Date(2019,12, 30)),new Date('dd/mm/yyyy')),
+                            vlTitulo: generateRandom(1,999),
+                        }
+                    ]
+                },
+                if(pagos) {
+                    'TitulosPagos' = [
+                        {
+                            cdEmpresa: generateRandom(1,99),
+                            cdFilial: generateRandom(1, 999),
+                            nrTitulo: generateRandom(1, 99999),
+                            nrParcela: generateRandom(1, 9),
+                            dsEspecie: especie[generateRandom[1, 20]],
+                            dtEmissao: dateformat(randomDate(new Date(2019, 12, 01), new Date('dd/mm/yyyy'))),
+                            dtPagamento: dateFormat(randomDate(new Date(2019,12, 30)),new Date('dd/mm/yyyy')),
+                            vlTitulo: generateRandom(1,999),
+                        }
+                    ]        
+                }
+               
             })
         }
 
