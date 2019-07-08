@@ -53,9 +53,9 @@ router.post('/', (req, res, next) => {
         "Cartão Débito a Prazo"
     ]
    
-   let  vencidos = parseString(entrada[generateRandom(1,2)]);
-   let  avencer  = parseString(entrada[generateRandom(1,2)]);
-   let  pagos    = parseString(entrada[generateRandom(1,2)]);   
+   let  vencidos = entrada[generateRandom(1,2)];
+   let  avencer  = entrada[generateRandom(1,2)];
+   let  pagos    = entrada[generateRandom(1,2)];   
     const user = User.find({ cdUnb: cdUnb, cdCliente: cdCliente}, function(err, users) {
         if(err) return console.log(err);
         if(users[0] === undefined) return res.status(500).json({msg: 'User not found'});
