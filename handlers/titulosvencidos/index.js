@@ -59,6 +59,8 @@ router.post('/', (req, res, next) => {
             ]
           
             let titulo =  TitulosVencidos({
+                cdUnb: users[0].cdUnb,
+                cdCliente: users[0].cdCliente,
                 cdEmpresa: generateRandom(1,99) * 100,
                 cdFilial: generateRandom(1,99) * 1000,
                 nrTitulo: generateRandom(1,99) * 100000,
