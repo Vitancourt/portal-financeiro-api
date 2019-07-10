@@ -53,9 +53,9 @@ router.post('/', (req, res, next) => {
         "Cartão Débito a Prazo"
     ]
    
-   let  vencidos = entrada[generateRandom(1,2)];
-   let  avencer  = entrada[generateRandom(1,2)];
-   let  pagos    = entrada[generateRandom(1,2)];   
+   let  vencidos = entrada[generateRandom(0,1)];
+   let  avencer  = entrada[generateRandom(0,1)];
+   let  pagos    = entrada[generateRandom(0,1)];   
     const user = User.find({ cdUnb: cdUnb, cdCliente: cdCliente}, function(err, users) {
         if(err) return console.log(err);
         if(users[0] === undefined) return res.status(500).json({msg: 'User not found'});
@@ -64,8 +64,7 @@ router.post('/', (req, res, next) => {
                 possuiTitulosVencidos: vencidos,
                 possuiTitulosAvencer: avencer,
                 possuiTitulosPagos: pagos,
-                if (vencidos) {
-                    'TitulosVencidos' = [
+                    TitulosVencidos: vencidos === "S" ? [
                         {
                             cdEmpresa: generateRandom(1,99),
                             cdFilial: generateRandom(1, 999),
@@ -77,10 +76,8 @@ router.post('/', (req, res, next) => {
                             vlTitulo: generateRandom(1,999),
                             nrDiasEmAberto: generateRandom(1, 999),
                         }
-                    ] 
-                },
-                if(avencer) {
-                    'TitulosAvencer' = [
+                    ] : null,
+                    TitulosAvencer = avencer === 'S' ? [
                         {
                             cdEmpresa: generateRandom(1,99),
                             cdFilial: generateRandom(1, 999),
@@ -91,10 +88,8 @@ router.post('/', (req, res, next) => {
                             dtVencimento: dateFormat(randomDate(new Date(2019,12, 30)),new Date('dd/mm/yyyy')),
                             vlTitulo: generateRandom(1,999),
                         }
-                    ]
-                },
-                if(pagos) {
-                    'TitulosPagos' = [
+                    ] : null,
+                    TitulosPagos = pagos === 'S' ? [
                         {
                             cdEmpresa: generateRandom(1,99),
                             cdFilial: generateRandom(1, 999),
@@ -105,10 +100,8 @@ router.post('/', (req, res, next) => {
                             dtPagamento: dateFormat(randomDate(new Date(2019,12, 30)),new Date('dd/mm/yyyy')),
                             vlTitulo: generateRandom(1,999),
                         }
-                    ]        
-                }
-               
-            })
+                    ] : null       
+                })
         }
 
         titulocliente.save()
