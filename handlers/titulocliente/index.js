@@ -77,7 +77,7 @@ router.post('/', (req, res, next) => {
                             nrDiasEmAberto: generateRandom(1, 999),
                         }
                     ] : null,
-                    TitulosAvencer = avencer === 'S' ? [
+                    TitulosAvencer: avencer === 'S' ? [
                         {
                             cdEmpresa: generateRandom(1,99),
                             cdFilial: generateRandom(1, 999),
@@ -89,7 +89,7 @@ router.post('/', (req, res, next) => {
                             vlTitulo: generateRandom(1,999),
                         }
                     ] : null,
-                    TitulosPagos = pagos === 'S' ? [
+                    TitulosPagos: pagos === 'S' ? [
                         {
                             cdEmpresa: generateRandom(1,99),
                             cdFilial: generateRandom(1, 999),
