@@ -66,7 +66,7 @@ router.post('/', (req, res, next) => {
                 nrTitulo: generateRandom(1,99) * 100000,
                 nrParcela: generateRandom(1,99) * 12,
                 cdEspecie: generateRandom(1,99) * 99,
-                dsEspecie: especie[generateRandom(1,99) * especie.length],
+                dsEspecie: especie[generateRandom(0,18)],
                 dtEmissao: dateFormat(randomDate(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy'),
                 dtVencimento: dateFormat(randomDate(new Date(2019, 12, 30), new Date()),'dd/mm/yyyy'),
                 vlTitulo: (generateRandom(1,99)) * 9999,
