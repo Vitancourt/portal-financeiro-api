@@ -27,52 +27,49 @@ router.post('/', (req, res, next) => {
         cdCliente
     } = req.body
 
-    const peridodicidade = [
-       "S",
-       "Q",
-       "M"
-    ]
-    
-    const entrada = [
-        "S",
-        "N"
-    ]
-
-    const formaParcelamento = [
-        "Semanal S/ Entrada",
-        "Semanal C/ Entrada",
-        "Quinzenal S/ Entrada",
-        "Quinzenal C/ Entrada",
-        "Mensal S/ Entrada",
-        "Mensal C/ Entrada"
-    ]
-    const parcelas = generateRandom(1,9)
-    const totalParcelado = generateRandom(1,999)
-    const primeiraParcela = totalParcelado / parcelas
-    const demaisParcelas = totalParcelado / parcelas
+  
 
     const user = User.find({cdUnb: cdUnb, cdCliente: cdCliente}, function(err, users) {
         if(err) return console.log(err)
         if(users[0] === undefined) return res.status(500).json({msg: "User not found"})
         if(parseInt(cdUnb) === users[0].cdUnb && parseInt(cdCliente) === users[0].cdCliente) {
+
+            const peridodicidade = [
+                "S",
+                "Q",
+                "M"
+             ]
+             
+             const entrada = [
+                 "S",
+                 "N"
+             ]
+         
+             const formaParcelamento = [
+                 "Semanal S/ Entrada",
+                 "Semanal C/ Entrada",
+                 "Quinzenal S/ Entrada",
+                 "Quinzenal C/ Entrada",
+                 "Mensal S/ Entrada",
+                 "Mensal C/ Entrada"
+             ]
+             const parcelas = generateRandom(1,9)
+             const totalParcelado = generateRandom(1,999)
+             const primeiraParcela = totalParcelado / parcelas
+             const demaisParcelas = totalParcelado / parcelas   
+
             const formadepagamentos = FormaDePagamento({
-                Parcelamento: [
-                    {
-                        idPeridodicidade: peridodicidade[generateRandom(0,2)],
-                        idEntrada: entrada[generateRandom(0,1)],
-                        dsFormaParcelamento: formaParcelamento[generateRandom(0,5)],
-                        Parcelas: [
-                            {
-                                nrParcelas: parcelas,
-                                vlTotalParcelado: totalParcelado,
-                                vlPrimeiraParcela: primeiraParcela,
-                                vlDemaisParcelas: demaisParcelas,
-                                dtPrimeiroVenc: dateFormat(randomDate(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy')
-                            }
-                        ] 
-                    }    
-                ]
+                idPeridodicidade: peridodicidade[generateRandom(1,3)],
+                idEntrada: entrada[generateRandom(0,1)],
+                dsFormaParcelamento: formaParcelamento[generateRandom(0,5)],
+                nrParcelas: parcelas,
+                vlTotalParcelado: totalParcelado,
+                vlPrimeiraParcela: primeiraParcela,
+                vlDemaisParcelas: demaisParcelas,
+                dtPrimeiroVenc: dateFormat(randomDate(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy')
+                    
             })
+            
             formadepagamentos.save()
             .then(formadepagamentosSaved => {
                 return res.status(201).json(formadepagamentosSaved)
