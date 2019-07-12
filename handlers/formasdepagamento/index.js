@@ -54,7 +54,7 @@ router.post('/', (req, res, next) => {
     const user = User.find({cdUnb: cdUnb, cdCliente: cdCliente}, function(err, users) {
         if(err) return console.log(err)
         if(users[0] === undefined) return res.status(500).json({msg: "User not found"})
-        if(cdUnb === users[0].cdUnb && cdCliente === users[0].cdCliente) {
+        if(parseInt(cdUnb) === users[0].cdUnb && parseInt(cdCliente) === users[0].cdCliente) {
             const formadepagamentos = FormaDePagamento({
                 Parcelamento: [
                     {
