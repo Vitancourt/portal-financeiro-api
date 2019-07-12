@@ -33,9 +33,9 @@ router.post('/',(req, res, next) => {
         if(parseInt(cdUnb) === users[0].cdUnb && parseInt(cdCliente) === users[0].cdCliente) {
             
             const negociacao = Negociacao({
-                vlTotalSemCorrecao: generateRandom(1,99),
-                vlTotalCorrigido: generateRandom(1,99),
-                vlTotalBoleto: generateRandom(1,99),
+                vlTotalSemCorrecao: (generateRandom(1,99)) * 9999,
+                vlTotalCorrigido: (generateRandom(1,99)) * 9999,
+                vlTotalBoleto: (generateRandom(1,99)) * 9999,
                 vlTotalParcelado: generateRandom(1,99),
                 prJuros: generateRandom(1,5),
                 prMulta: generateRandom(1,5)
