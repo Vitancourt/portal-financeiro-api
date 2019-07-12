@@ -59,7 +59,7 @@ router.post('/', (req, res, next) => {
              const demaisParcelas = totalParcelado / parcelas   
 
             const formadepagamentos = FormaDePagamento({
-                idPeridodicidade: peridodicidade[generateRandom(1,3)],
+                idPeridodicidade: peridodicidade[generateRandom(0,2)],
                 idEntrada: entrada[generateRandom(0,1)],
                 dsFormaParcelamento: formaParcelamento[generateRandom(0,5)],
                 nrParcelas: parcelas,
