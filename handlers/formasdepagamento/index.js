@@ -61,7 +61,7 @@ router.post('/', (req, res, next) => {
             const formadepagamentos = FormaDePagamento({
                 idPeridodicidade: peridodicidade[generateRandom(0,2)],
                 idEntrada: entrada[generateRandom(0,1)],
-                dsFormaParcelamento: formaParcelamento[generateRandom(0,5)],
+                dsFormaParcelamento: formaParcelamento,
                 nrParcelas: parcelas,
                 vlTotalParcelado: totalParcelado,
                 vlPrimeiraParcela: primeiraParcela,
