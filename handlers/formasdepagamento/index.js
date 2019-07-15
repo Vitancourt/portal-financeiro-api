@@ -30,7 +30,9 @@ router.post('/', (req, res, next) => {
   
 
     const user = User.find({cdUnb: cdUnb, cdCliente: cdCliente}, function(err, users) {
-        if(err) return console.log(err)
+        console.log(users);
+        
+        if (err) return console.log(err)
         if(users[0] === undefined) return res.status(500).json({msg: "User not found"})
         if(parseInt(cdUnb) === users[0].cdUnb && parseInt(cdCliente) === users[0].cdCliente) {
 
@@ -69,6 +71,7 @@ router.post('/', (req, res, next) => {
                 dtPrimeiroVenc: dateFormat(randomDate(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy')
                     
             })
+            console.log("TCL: formadepagamentos", formadepagamentos)
             
             formadepagamentos.save()
             .then(formadepagamentosSaved => {

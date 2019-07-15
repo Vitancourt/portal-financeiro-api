@@ -4,7 +4,7 @@ const uuid = require('uuid/v4')
 const FormaPagamento = new mongoose.Schema({
     idPeridodicidade: String,
     idEntrada: String,
-    dsFormaParcelamento: String,
+    dsFormaParcelamento: mongoose.Schema.Types.Mixed,
     nrParcelas: Number,
     vlTotalParcelado: Number,
     vlPrimeiraParcela: Number,
