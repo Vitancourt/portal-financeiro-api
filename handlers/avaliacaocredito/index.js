@@ -30,19 +30,17 @@ router.get('/', (req, res, next) => {
             let titulosVencidos = (Random.number(1,101) % 2 === 0) ? "S":"N"
             let possuiPendencias = (Random.number(1, 101) % 2 === 0) ? "S" : "N"
             let avaliacaocredito = AvaliacaoDeCredito({
-                AvaliacaoCredito: [{
-                    possuiTitulosVencidos: titulosVencidos,
-                    classeRisco: Random.number(1, 6),
-                    possuiPendencias: possuiPendencias,
-                    pendenciasBancarias: possuiPendencias === "S" ? Random.number(0, 999999999) : 0,
-                    pendenciasComerciais: possuiPendencias === "S" ? Random.number(0, 999999999) : 0,
-                    pendenciasJudiciais: possuiPendencias === "S" ? Random.number(0, 999999999) : 0,
-                    pendenciasComCheques: possuiPendencias === "S" ? Random.number(0, 999999999) : 0,
-                    percentualTitulosAtraso: percentualTitulosAtraso[Random.number(0, 3)],
-                    quantidadeTitulosVencidos: titulosVencidos === "S" ? Random.number(0, 99999) : 0,
-                    possuiDocumentacao: (Random.number(1, 101) % 2 === 0) ? "S" : "N",
-                    ultConsultaSerasa: dateFormat(Random.date(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy')
-                }]
+                possuiTitulosVencidos: titulosVencidos,
+                classeRisco: Random.number(1, 6),
+                possuiPendencias: possuiPendencias,
+                pendenciasBancarias: possuiPendencias === "S" ? Random.number(0, 999999999) : 0,
+                pendenciasComerciais: possuiPendencias === "S" ? Random.number(0, 999999999) : 0,
+                pendenciasJudiciais: possuiPendencias === "S" ? Random.number(0, 999999999) : 0,
+                pendenciasComCheques: possuiPendencias === "S" ? Random.number(0, 999999999) : 0,
+                percentualTitulosAtraso: percentualTitulosAtraso[Random.number(0, 3)],
+                quantidadeTitulosVencidos: titulosVencidos === "S" ? Random.number(0, 99999) : 0,
+                possuiDocumentacao: (Random.number(1, 101) % 2 === 0) ? "S" : "N",
+                ultConsultaSerasa: dateFormat(Random.date(new Date(2019, 0, 1), new Date()),'dd/mm/yyyy')
             })
             return res.status(200).json(avaliacaocredito)
         }
