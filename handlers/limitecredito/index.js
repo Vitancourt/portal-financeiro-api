@@ -9,7 +9,6 @@ const User = require('../../models/user')
 
 router.get('/', (req, res, next) => {
     if (parseInt(req.query.ppopcao) !== 55 || parseInt(req.query.requisicao) !== 86 || parseInt(req.query.opcao) !== 11) return res.status(500)
-   
     const cdUnb = parseInt(req.query.cdUnb)
 
     const cdCliente= parseInt(req.query.cdCliente)
@@ -22,16 +21,18 @@ router.get('/', (req, res, next) => {
 
         if(cdUnb === users[0].cdUnb && cdCliente === users[0].cdCliente) {
 
-            let creditoDisponivel = Random.number(1,101) % 2 ? "S":"N"
-
             let titulosVencidos = Random.number(1,101) % 2 ? "S":"N"
+            let titulosAVencer = Random.number(1, 101) % 2 ? "S":"N"
+            let pedidosFuturos = Random.number(1, 101) % 2 ? "S":"N"
+            let creditoDisponivel = Random.number(1,101) % 2 ? "S":"N"
 
             let limitecredito = LimiteCredito({
                 limiteAprovado: Random.number(0, 10000),
                 classeRisco: Random.number(1, 6),
                 possuiTitulosVencidos: titulosVencidos,
                 totalTitulosVencidos: titulosVencidos === "S" ? Random.number(0, 50000, 2):0,
-                totalPedidosFuturos: Random.number(0, 100000, 2),
+                totalTitulosAVencer: titulosAVencer === "S" ? Random.number(0, 900000, 2):0,
+                totalPedidosFuturos: pedidosFuturos === "S" ? Random.number(0, 100000, 2):0,
                 possuiCreditoDisponivel: creditoDisponivel,
                 
             });
