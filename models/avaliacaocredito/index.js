@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const uuid = require('uuid/v4')
 
 const AvaliacaoDeCredito = new mongoose.Schema({
-    AvaliacaoDeCredito: [
+    AvaliacaoCredito: [
         {
             possuiTitulosVencidos: String,
             classeRisco: Number,
