@@ -31,7 +31,7 @@ router.get('/', (req, res, next) => {
                 classeRisco: Random.number(1, 6),
                 possuiTitulosVencidos: titulosVencidos,
                 totalTitulosVencidos: titulosVencidos === "S" ? Random.number(0, 50000, 2):0,
-                totalTitulosAVencer: titulosAVencer === "S" ? Random.number(0, 900000, 2):0,
+                totalTitulosAvencer: titulosAVencer === "S" ? Random.number(0, 900000, 2):0,
                 totalPedidosFuturos: pedidosFuturos === "S" ? Random.number(0, 100000, 2):0,
                 possuiCreditoDisponivel: creditoDisponivel,
                 
