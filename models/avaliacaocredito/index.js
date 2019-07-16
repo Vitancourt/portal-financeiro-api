@@ -12,7 +12,7 @@ const AvaliacaoDeCredito = new mongoose.Schema({
     percentualTitulosAtraso: String,
     quantidadeTitulosVencidos: Number,
     possuiDocumentacao: String,
-    ultConsultaSerada: String
+    ultConsultaSerasa: String
 })
 
 module.exports = mongoose.model('AvaliacaoDeCredito', AvaliacaoDeCredito);
