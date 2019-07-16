@@ -11,4 +11,5 @@ router.use('/titulo-cliente', require('./titulocliente'))
 router.use('/avaliacao-de-credito', require('./avaliacaocredito'))
 router.use('/limite-de-credito', require('./limitecredito'))
 router.use('/informacoes-de-prazo', require('./informacoesprazo'))
+router.use('/atualizacao-cadastral', require('./atualizacaocadastral'))
 module.exports = router
