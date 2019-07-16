@@ -1,4 +1,5 @@
-const LimiteCredito = require('../../models/limitecredito')
+const dateFormat = require('dateformat')
+const InformacoesPrazo = require('../../models/informacoesprazo')
 const Random = require('../../helper/random')
 const router = require('express').Router()
 const User = require('../../models/user')
@@ -21,23 +22,20 @@ router.get('/', (req, res, next) => {
 
         if(cdUnb === users[0].cdUnb && cdCliente === users[0].cdCliente) {
 
-            let titulosVencidos = Random.number(1,101) % 2 ? "S":"N"
-            let titulosAVencer = Random.number(1, 101) % 2 ? "S":"N"
-            let pedidosFuturos = Random.number(1, 101) % 2 ? "S":"N"
-            let creditoDisponivel = Random.number(1,101) % 2 ? "S":"N"
+            let prazoAtual = Random.number(0, 98)
 
-            let limitecredito = LimiteCredito({
-                limiteAprovado: Random.number(0, 10000),
-                classeRisco: Random.number(1, 6),
-                possuiTitulosVencidos: titulosVencidos,
-                totalTitulosVencidos: titulosVencidos === "S" ? Random.number(0, 50000, 2):0,
-                totalTitulosAvencer: titulosAVencer === "S" ? Random.number(0, 900000, 2):0,
-                totalPedidosFuturos: pedidosFuturos === "S" ? Random.number(0, 100000, 2):0,
-                possuiCreditoDisponivel: creditoDisponivel,
-                
+            let informacoesPrazo = InformacoesPrazo({
+                prazoAtual: prazoAtual,
+                prazoMaximo: Random.number(prazoAtual, 99),
+                possuiTitulosVencidos: Random.number(1, 101) % 2 === 0 ? "S" : "N",
+                historico: [{
+                    dataAlteracao: dateFormat(Random.date(new Date(2019, 6, 1), new Date(2019,11, 30)),'dd/mm/yyyy'),
+                    prazoAlterado: Random.number(0, 99),
+                    motivoAlteracao: 'Solicitacao Aprovada'
+                }]
             });
 
-            return res.status(200).json(limitecredito)
+            return res.status(200).json(informacoesPrazo)
             
         }
         

@@ -6,7 +6,7 @@ const LimiteCredito = new mongoose.Schema({
     classeRisco: Number,
     possuiTitulosVencidos: String,
     totalTitulosVencidos: Number,
-    totalTitulosAVencer: Number,
+    totalTitulosAvencer: Number,
     totalPedidosFuturos: Number,
     possuiCreditoDisponivel: String
 })
